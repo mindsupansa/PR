@@ -299,7 +299,7 @@
   <div class="orb o2"></div>
   <div class="orb o3"></div>
 
-  <div class="top-ribbon">🌿 ธนาคารขยะออนไลน์ — Waste Bank Online ♻️ 🌿</div>
+  <div class="top-ribbon">🌿 Waste Bank Online ♻️ 🌿</div>
 
   <div class="content">
 
@@ -376,20 +376,6 @@
         </div>
       </div>
 
-      <div class="card full">
-        <div class="c-title">📍 จุดรับฝากขยะ</div>
-        <div class="loc-row">
-          <span class="loc-arrow">🔴➡️</span>
-          <span class="loc-name">ป้อมยามหน้าโรงงาน</span>
-          <span class="loc-badge">จุด 51</span>
-        </div>
-        <div class="loc-row">
-          <span class="loc-arrow">🔴➡️</span>
-          <span class="loc-name">ป้อมยามหลังโรงงาน</span>
-          <span class="loc-badge">จุด 52</span>
-        </div>
-      </div>
-
     </div>
 
     <!-- PROMO -->
@@ -432,21 +418,5 @@
 
   </div>
 </div>
-
-<script>
-  const banner = document.getElementById('banner');
-  const items = ['🍃','🌿','♻️','🍀','🌱'];
-  for (let i = 0; i < 14; i++) {
-    const el = document.createElement('div');
-    el.className = 'leaf';
-    el.textContent = items[Math.floor(Math.random() * items.length)];
-    el.style.left = Math.random() * 100 + '%';
-    el.style.bottom = '-20px';
-    el.style.fontSize = (9 + Math.random() * 10) + 'px';
-    el.style.animationDuration = (7 + Math.random() * 9) + 's';
-    el.style.animationDelay = (Math.random() * 9) + 's';
-    banner.appendChild(el);
-  }
-</script>
 </body>
 </html>
