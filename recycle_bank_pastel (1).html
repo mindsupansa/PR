@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ธนาคารขยะออนไลน์</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700;900&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #d4ecd4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 30px 20px;
+    font-family: 'Kanit', sans-serif;
+  }
+
+  .banner {
+    width: 680px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 28px;
+    background: linear-gradient(160deg, #f0faf0 0%, #e4f5e4 50%, #edfaed 100%);
+    border: 2px solid rgba(120,200,120,0.3);
+    box-shadow:
+      0 8px 40px rgba(80,160,80,0.15),
+      0 2px 8px rgba(80,160,80,0.08),
+      inset 0 1px 0 rgba(255,255,255,0.9);
+  }
+
+  /* Soft circle decorations */
+  .orb { position:absolute; border-radius:50%; filter:blur(50px); pointer-events:none; animation:orbPulse 6s ease-in-out infinite; }
+  .o1 { width:280px;height:280px; background:radial-gradient(circle,rgba(144,238,144,0.35),transparent); top:-80px;right:-60px; }
+  .o2 { width:220px;height:220px; background:radial-gradient(circle,rgba(152,251,152,0.28),transparent); bottom:-70px;left:-50px; animation-delay:3s; }
+  .o3 { width:160px;height:160px; background:radial-gradient(circle,rgba(200,240,180,0.22),transparent); top:50%;left:38%; animation-delay:1.5s; }
+  @keyframes orbPulse {
+    0%,100%{ opacity:.6; transform:scale(1); }
+    50%    { opacity:1;   transform:scale(1.08); }
+  }
+
+  /* Dot pattern */
+  .banner::before {
+    content:''; position:absolute; inset:0; pointer-events:none;
+    background-image: radial-gradient(circle, rgba(100,180,100,0.12) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+  }
+
+  /* ===== TOP RIBBON ===== */
+  .top-ribbon {
+    background: linear-gradient(90deg,#a8d8a8,#b8e4b8,#c8edc8,#b8e4b8,#a8d8a8);
+    background-size:300% auto;
+    animation: ribbonMove 5s linear infinite;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 13px; font-weight:700;
+    color: #3a7a3a; letter-spacing:2px;
+  }
+  @keyframes ribbonMove {
+    from{background-position:0% center}
+    to  {background-position:300% center}
+  }
+
+  /* ===== CONTENT ===== */
+  .content {
+    position:relative; z-index:10;
+    padding: 26px 34px 28px;
+    display:flex; flex-direction:column; gap:16px;
+  }
+
+  /* ===== HERO ===== */
+  .hero { text-align:center; animation:fadeDown .7s ease both; }
+  .hero-chip {
+    display:inline-block;
+    background:rgba(100,180,100,0.15);
+    border:1.5px solid rgba(100,180,100,0.4);
+    border-radius:20px; padding:4px 18px;
+    font-size:12px; font-weight:700;
+    color:#4a9a4a; letter-spacing:2px; margin-bottom:10px;
+  }
+  .hero-main {
+    display:block; font-size:44px; font-weight:900; line-height:1.05;
+    background: linear-gradient(135deg,#4caf50 0%,#66bb6a 40%,#43a047 75%,#4caf50 100%);
+    background-size:200% auto;
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    animation:shimmer 3.5s linear infinite;
+    filter:drop-shadow(0 2px 8px rgba(80,160,80,.2));
+  }
+  .hero-sub {
+    display:block; font-size:13.5px;
+    color:#5a8a5a; font-family:'Sarabun',sans-serif;
+    margin-top:8px; line-height:1.7;
+  }
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-16px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes shimmer  { from{background-position:0% center} to{background-position:200% center} }
+
+  /* ===== DIVIDER ===== */
+  .div-row { display:flex; align-items:center; gap:10px; }
+  .div-line { flex:1; height:1.5px; background:linear-gradient(90deg,transparent,rgba(100,180,100,0.45),transparent); }
+  .div-leaf { font-size:16px; }
+
+  /* ===== INFO GRID ===== */
+  .info-grid {
+    display:grid; grid-template-columns:1fr 1fr; gap:12px;
+    animation:fadeUp .7s ease .25s both;
+  }
+  .card {
+    background:rgba(255,255,255,0.7);
+    border:1.5px solid rgba(120,200,120,0.3);
+    border-radius:16px; padding:16px 17px;
+    position:relative; overflow:hidden;
+    transition:all .3s;
+    box-shadow:0 2px 12px rgba(80,160,80,0.07);
+  }
+  .card::after {
+    content:''; position:absolute; top:0;left:0;right:0; height:3px;
+    background:linear-gradient(90deg,#a8d8a8,#6abf6a,#a8d8a8);
+    border-radius:16px 16px 0 0;
+  }
+  .card:hover {
+    background:rgba(255,255,255,0.9);
+    border-color:rgba(100,180,100,0.5);
+    transform:translateY(-2px);
+    box-shadow:0 6px 20px rgba(80,160,80,0.14);
+  }
+  .card.full { grid-column:1/-1; }
+  .card.money {
+    background:linear-gradient(135deg,rgba(200,240,200,0.6),rgba(220,250,220,0.5));
+    border-color:rgba(100,190,100,0.45);
+  }
+
+  .c-icon  { font-size:22px; margin-bottom:7px; display:block; }
+  .c-title { font-size:14px; font-weight:700; color:#3a7a3a; margin-bottom:6px; }
+  .c-body  { font-size:12.5px; color:#6a9a6a; font-family:'Sarabun',sans-serif; line-height:1.7; }
+
+  .open-tag {
+    display:inline-block;
+    background:rgba(100,200,100,0.15); border:1.5px solid rgba(100,200,100,0.4);
+    border-radius:8px; padding:3px 12px;
+    font-size:11.5px; font-weight:700; color:#3a8a3a; margin-bottom:6px;
+  }
+
+  .loc-row {
+    display:flex; align-items:center; gap:8px;
+    padding:8px 12px; margin-top:7px;
+    background:rgba(255,255,255,0.6); border-radius:10px;
+    border:1px solid rgba(120,200,120,0.22);
+  }
+  .loc-arrow { font-size:14px; }
+  .loc-name  { flex:1; font-size:13px; color:#4a7a4a; font-family:'Sarabun',sans-serif; }
+  .loc-badge {
+    background:rgba(255,120,120,0.12); border:1.5px solid rgba(220,100,100,0.28);
+    border-radius:8px; padding:2px 10px;
+    font-size:12px; font-weight:700; color:#cc5555;
+  }
+
+  .money-num {
+    font-size:24px; font-weight:900; font-family:'Kanit',sans-serif;
+    background:linear-gradient(90deg,#43a047,#66bb6a);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  }
+
+  /* ===== PROMO SECTION ===== */
+  .promo-section { animation:fadeUp .7s ease .45s both; }
+  .promo-header {
+    display:flex; align-items:center; gap:10px; margin-bottom:10px;
+  }
+  .promo-header-line { flex:1; height:1.5px; background:linear-gradient(90deg,transparent,rgba(200,170,60,0.4),transparent); }
+  .promo-header-text {
+    font-size:13px; font-weight:700; color:#8a7020;
+    letter-spacing:1.5px; white-space:nowrap;
+    background:rgba(255,230,100,0.2); border:1px solid rgba(200,170,60,0.3);
+    border-radius:10px; padding:4px 14px;
+  }
+
+  .promo-list { display:flex; flex-direction:column; gap:8px; }
+  .promo-item {
+    display:flex; align-items:center; gap:12px;
+    background:rgba(255,255,255,0.65);
+    border:1.5px solid rgba(200,210,160,0.5);
+    border-radius:13px; padding:12px 15px;
+    position:relative; overflow:hidden;
+    transition:all .3s;
+    box-shadow:0 2px 8px rgba(160,180,80,0.08);
+  }
+  .promo-item::before {
+    content:''; position:absolute; left:0;top:0;bottom:0; width:4px;
+    background:linear-gradient(180deg,#c8b840,#e8a020); border-radius:4px 0 0 4px;
+  }
+  .promo-item:hover { background:rgba(255,255,240,0.9); border-color:rgba(200,180,80,0.5); transform:translateX(4px); }
+  .promo-item.gold {
+    background:linear-gradient(135deg,rgba(255,240,180,0.5),rgba(255,250,210,0.4));
+    border-color:rgba(220,180,60,0.45);
+  }
+
+  .p-icon { font-size:24px; flex-shrink:0; }
+  .p-text strong { display:block; font-size:14.5px; font-weight:700; color:#3a5a1a; line-height:1.3; }
+  .p-text span   { font-size:12px; color:#7a8a5a; font-family:'Sarabun',sans-serif; }
+  .promo-item.gold .p-text strong { color:#7a5010; font-size:15px; }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align:center; font-size:13px;
+    color:#5a8a5a; font-family:'Sarabun',sans-serif;
+    line-height:1.7; padding:12px 16px;
+    background:rgba(180,230,180,0.25);
+    border:1.5px solid rgba(120,200,120,0.25); border-radius:14px;
+    animation:fadeUp .7s ease .65s both;
+  }
+  .footer strong { color:#3a7a3a; font-family:'Kanit',sans-serif; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+
+  /* Floating leaves */
+  .leaf { position:absolute; pointer-events:none; animation:floatLeaf linear infinite; opacity:0; }
+  @keyframes floatLeaf {
+    0%   { opacity:0; transform:translateY(10px) rotate(0deg); }
+    15%  { opacity:.5; }
+    85%  { opacity:.25; }
+    100% { opacity:0; transform:translateY(-500px) rotate(180deg); }
+  }
+</style>
+</head>
+<body>
+
+<div class="banner" id="banner">
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="orb o3"></div>
+
+  <div class="top-ribbon">🌿 ธนาคารขยะออนไลน์ — Waste Bank Online ♻️ 🌿</div>
+
+  <div class="content">
+
+    <!-- HERO -->
+    <div class="hero">
+      <span class="hero-chip">♻️ WASTE BANK ONLINE</span>
+      <span class="hero-main">ธนาคารขยะออนไลน์</span>
+      <span class="hero-sub">
+        🌱 เริ่มต้นง่าย ๆ ด้วยการแยกขยะใกล้ตัวเรา<br>
+        มาร่วมกันสร้างโรงงานที่สะอาด น่าอยู่ และยั่งยืนไปด้วยกัน
+      </span>
+    </div>
+
+    <div class="div-row">
+      <div class="div-line"></div><span class="div-leaf">🍃</span><div class="div-line"></div>
+    </div>
+
+    <!-- INFO GRID -->
+    <div class="info-grid">
+
+      <div class="card">
+        <span class="c-icon">📅</span>
+        <div class="c-title">วันรับชั่งน้ำหนักขยะ</div>
+        <span class="open-tag">✅ เปิดทุกวัน ไม่มีวันหยุด!</span>
+        <div class="c-body">
+          เปิดรับทุกวัน ทุกช่วงเวลา<br>
+          ผู้ฝากนำขยะมาชั่งด้วยตนเอง<br>ณ จุดรับฝาก
+        </div>
+      </div>
+
+      <div class="card money">
+        <span class="c-icon">💰</span>
+        <div class="c-title">รับเงินรวดเร็ว</div>
+        <div class="c-body">
+          <span class="money-num">ภายใน 1 ชั่วโมง</span><br>
+          <span style="font-size:11.5px;color:#6a9a6a;">หลังชั่งน้ำหนักเสร็จสิ้น ✨</span>
+        </div>
+      </div>
+
+      <div class="card full">
+        <div class="c-title">📍 จุดรับฝากขยะ</div>
+        <div class="loc-row">
+          <span class="loc-arrow">🔴➡️</span>
+          <span class="loc-name">ป้อมยามหน้าโรงงาน</span>
+          <span class="loc-badge">จุด 51</span>
+        </div>
+        <div class="loc-row">
+          <span class="loc-arrow">🔴➡️</span>
+          <span class="loc-name">ป้อมยามหลังโรงงาน</span>
+          <span class="loc-badge">จุด 52</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PROMO -->
+    <div class="promo-section">
+      <div class="promo-header">
+        <div class="promo-header-line"></div>
+        <span class="promo-header-text">🏆 โปรโมชั่นพิเศษสำหรับผู้ฝาก</span>
+        <div class="promo-header-line"></div>
+      </div>
+      <div class="promo-list">
+        <div class="promo-item">
+          <span class="p-icon">🎁</span>
+          <div class="p-text">
+            <strong>ฝากครั้งแรก รับสิทธิ์ลุ้นรางวัลทันที!</strong>
+            <span>👉 เพียงฝากครั้งแรก ก็มีสิทธิ์ได้เลย</span>
+          </div>
+        </div>
+        <div class="promo-item">
+          <span class="p-icon">🎰</span>
+          <div class="p-text">
+            <strong>ผู้เข้าร่วมทุกท่าน มีสิทธิ์ลุ้นรับของรางวัล</strong>
+            <span>👉 ทุกการฝาก ทุกรอบ — มีสิทธิ์ทุกคน</span>
+          </div>
+        </div>
+        <div class="promo-item gold">
+          <span class="p-icon">🏆</span>
+          <div class="p-text">
+            <strong>ยอดฝากสะสมสูงสุด รับรางวัลพิเศษ! ♻️</strong>
+            <span>👉 ยิ่งฝากมาก ยิ่งมีโอกาสรับรางวัลใหญ่</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      ✨ <strong>ร่วมเป็นส่วนหนึ่งในการดูแลโลกของเราไปด้วยกัน</strong> ✨<br>
+      ขยะของคุณ คือคุณค่าที่รอการเปลี่ยนแปลง — มาทำให้โลกดีขึ้นด้วยกัน 🌍
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const banner = document.getElementById('banner');
+  const items = ['🍃','🌿','♻️','🍀','🌱'];
+  for (let i = 0; i < 14; i++) {
+    const el = document.createElement('div');
+    el.className = 'leaf';
+    el.textContent = items[Math.floor(Math.random() * items.length)];
+    el.style.left = Math.random() * 100 + '%';
+    el.style.bottom = '-20px';
+    el.style.fontSize = (9 + Math.random() * 10) + 'px';
+    el.style.animationDuration = (7 + Math.random() * 9) + 's';
+    el.style.animationDelay = (Math.random() * 9) + 's';
+    banner.appendChild(el);
+  }
+</script>
+</body>
+</html>
